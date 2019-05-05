@@ -8,6 +8,8 @@
 </head>
 <body>
   <button id="button">Get Text File</button>
+  <br><br>
+  <div id="text"></div>
 
   <script>
     // Create event listener
@@ -18,15 +20,42 @@
       // OPEN - type, url/file, async - аргументы
     
       xhr.open('GET', 'sample.txt', true);
+      
+      console.log('READYSTATE:', xhr.readyState);
+
+      xhr.onprogress = function (){
+
+      }
 
       xhr.onload = function () {
         if (this.status == 200) {
-            console.log(this.responseText);
+          console.log('READYSTATE:', xhr.readyState);
+//        console.log(this.responseText);
+          document.getElementById('text').innerHTML = this.responseText;
+        } else if (this.status = 404) {
+          document.getElementById('text').innerHTML = 'not found';
         }
       }
+      
+      xhr.onerror = function () {
+
+      }
+
+ //       xhr.onreadystatechange = function () {
+ //         console.log('READYSTATE:', xhr.readyState);
+ //         if (this.readyState == 4 && this.status == 200) {
+ //           console.log(this.responseText);
+ //         }
+ //       }
+
+      // sends reqest
       xhr.send();
     }
 
+    // HTTP Status
+    // 200: "OK"
+    // 403: "Forbidden"
+    // 404: "Not Found"
     </script>
 </body>
 </html>
